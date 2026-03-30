@@ -1,3 +1,6 @@
+## Course
+CST8922 – Applied Projects
+
 # Cloud-Based Task Management Application
 
 ## Overview
