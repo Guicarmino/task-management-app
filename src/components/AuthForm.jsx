@@ -10,61 +10,86 @@ function AuthForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");
+    setMessageType("");
+
+    if (!email.trim() || !password.trim()) {
+      setMessage("Email and password are required.");
+      setMessageType("error");
+      return;
+    }
+
+    if (password.length < 6) {
+      setMessage("Password must be at least 6 characters.");
+      setMessageType("error");
+      return;
+    }
 
     try {
       if (isRegister) {
         await createUserWithEmailAndPassword(auth, email, password);
         setMessage("Account created successfully.");
+        setMessageType("success");
       } else {
         await signInWithEmailAndPassword(auth, email, password);
         setMessage("Login successful.");
+        setMessageType("success");
       }
     } catch (error) {
       setMessage(error.message);
+      setMessageType("error");
     }
   };
 
   return (
-    <div style={{ maxWidth: "400px", margin: "40px auto" }}>
+    <div className="auth-container">
       <h2>{isRegister ? "Register" : "Login"}</h2>
 
       <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: "10px" }}>
+        <div className="form-group">
           <input
             type="email"
             placeholder="Enter email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            style={{ width: "100%", padding: "10px" }}
+            className="form-input"
           />
         </div>
 
-        <div style={{ marginBottom: "10px" }}>
+        <div className="form-group">
           <input
             type="password"
             placeholder="Enter password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            style={{ width: "100%", padding: "10px" }}
+            className="form-input"
           />
         </div>
 
-        <button type="submit" style={{ padding: "10px 20px" }}>
+        <button type="submit" className="primary-btn">
           {isRegister ? "Register" : "Login"}
         </button>
       </form>
 
-      <p style={{ marginTop: "10px", color: "green" }}>{message}</p>
+      {message && (
+        <p className={messageType === "success" ? "success-message" : "error-message"}>
+          {message}
+        </p>
+      )}
 
       <button
-        onClick={() => setIsRegister(!isRegister)}
-        style={{ marginTop: "10px", padding: "8px 14px" }}
+        onClick={() => {
+          setIsRegister(!isRegister);
+          setMessage("");
+          setMessageType("");
+        }}
+        className="secondary-btn"
       >
         Switch to {isRegister ? "Login" : "Register"}
       </button>

@@ -1,16 +1,22 @@
-body {
+:root {
   font-family: Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #111827;
+  background-color: #f3f4f6;
+}
+
+body {
   margin: 0;
-  padding: 0;
-  background: #f5f5f5;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: #f3f4f6;
 }
 
-input,
-textarea,
-button {
-  font-size: 16px;
+* {
+  box-sizing: border-box;
 }
 
-button {
-  cursor: pointer;
+button:hover {
+  opacity: 0.9;
 }

@@ -3,6 +3,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./services/firebase";
 import AuthForm from "./components/AuthForm";
 import Dashboard from "./components/Dashboard";
+import "./App.css";
 
 function App() {
   const [user, setUser] = useState(null);
